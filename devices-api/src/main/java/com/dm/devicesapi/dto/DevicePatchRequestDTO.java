@@ -1,26 +1,10 @@
 package com.dm.devicesapi.dto;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+public class DevicePatchRequestDTO {
 
-public class DeviceResponseDTO {
-
-    private UUID id;
     private String name;
     private String brand;
     private String state;
-    private LocalDateTime creationTime;
-
-    public DeviceResponseDTO() {
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -44,13 +28,5 @@ public class DeviceResponseDTO {
 
     public void setState(String state) {
         this.state = state;
-    }
-
-    public LocalDateTime getCreationTime() {
-        return creationTime;
-    }
-
-    public void setCreationTime(LocalDateTime creationTime) {
-        this.creationTime = creationTime;
     }
 }

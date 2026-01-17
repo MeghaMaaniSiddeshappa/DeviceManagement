@@ -1,12 +1,17 @@
 package com.dm.devicesapi.controller;
 
+import com.dm.devicesapi.dto.DevicePatchRequestDTO;
 import com.dm.devicesapi.dto.DeviceRequestDTO;
 import com.dm.devicesapi.dto.DeviceResponseDTO;
+import com.dm.devicesapi.model.DeviceState;
 import com.dm.devicesapi.service.DeviceService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.UUID;
 
 //TODO: time format is wrong in response?
@@ -27,46 +32,41 @@ public class DeviceController {
     @GetMapping()
     public ResponseEntity<Page<DeviceResponseDTO>> getAllDevices(
             @RequestParam(required = false) String brand,
-            @RequestParam(required = false) String state,
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "20") int size,
-            @RequestParam(required = false, defaultValue = "id") String sortBy,
-            @RequestParam(required = false, defaultValue = "asc") String sortDir
+            @RequestParam(required = false) DeviceState state,
+            Pageable pageable
     ) {
-        Page<DeviceResponseDTO> deviceResponseDTOs = deviceService.getAllDevices( brand, state, page, size, sortBy, sortDir);
-        return ResponseEntity.ok().body(deviceResponseDTOs);
+        Page<DeviceResponseDTO> deviceResponseDTOs = deviceService.getAllDevices( brand, state, pageable);
+        return ResponseEntity.ok(deviceResponseDTOs);
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<DeviceResponseDTO> getDeviceById(@PathVariable UUID id) {
         DeviceResponseDTO deviceResponseDTO = deviceService.getDeviceById(id);
-        return ResponseEntity.ok().body(deviceResponseDTO);
+        return ResponseEntity.ok(deviceResponseDTO);
     }
 
     @PostMapping
-    public ResponseEntity<DeviceResponseDTO> createDevice(//TODO: is DeviceRequestDTO required or DeviceResponseDTO can be used here?
-                                                         @RequestBody DeviceRequestDTO deviceRequestDTO) {
-        DeviceResponseDTO deviceResponseDTO = deviceService.createDevice( deviceRequestDTO);
-        return ResponseEntity.status(201).body(deviceResponseDTO);
+    public ResponseEntity<DeviceResponseDTO> createDevice(@RequestBody @Valid DeviceRequestDTO deviceRequestDTO) {
+        DeviceResponseDTO createdDTO = deviceService.createDevice( deviceRequestDTO);
+        URI location = URI.create("/api/v1/devices/" + createdDTO.getId());
+        return ResponseEntity.created(location).body(createdDTO);
     }
 
 
     @PutMapping("/{id}")
     public ResponseEntity<DeviceResponseDTO> updateDevice(@PathVariable UUID id,
-                                                         //TODO: is DeviceRequestDTO required or DeviceResponseDTO can be used here?
-                                                         @RequestBody DeviceRequestDTO deviceRequestDTO) {
-        DeviceResponseDTO deviceResponseDTO = deviceService.updateDevice(id, deviceRequestDTO);
-        return ResponseEntity.ok().body(deviceResponseDTO);
+                                                         @RequestBody @Valid DeviceRequestDTO deviceRequestDTO) {
+        DeviceResponseDTO updatedDTO = deviceService.updateDevice(id, deviceRequestDTO);
+        return ResponseEntity.ok(updatedDTO);
     }
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<DeviceResponseDTO> partialUpdateDevice(@PathVariable UUID id,
-                                                                //TODO: is DeviceRequestDTO required or DeviceResponseDTO can be used here?
-                                                                @RequestBody DeviceRequestDTO deviceRequestDTO) {
-        DeviceResponseDTO deviceResponseDTO = deviceService.partialUpdateDevice(id, deviceRequestDTO);
-        return ResponseEntity.ok().body(deviceResponseDTO);
+    public ResponseEntity<DeviceResponseDTO> patchUpdateDevice(@PathVariable UUID id,
+                                                               @RequestBody DevicePatchRequestDTO devicePatchRequestDTO) {
+        DeviceResponseDTO updatedDTO = deviceService.patchUpdateDevice(id, devicePatchRequestDTO);
+        return ResponseEntity.ok(updatedDTO);
     }
 
     @DeleteMapping("/{id}")
@@ -74,8 +74,5 @@ public class DeviceController {
         deviceService.deleteDevice(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 
 }

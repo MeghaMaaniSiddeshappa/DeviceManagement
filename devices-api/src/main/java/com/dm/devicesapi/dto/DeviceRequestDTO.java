@@ -1,29 +1,19 @@
 package com.dm.devicesapi.dto;
 
+import com.dm.devicesapi.model.DeviceState;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class DeviceRequestDTO {
 
-    private String id;
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @NotBlank(message = "Brand is required")
     private String brand;
-    private String state;
 
-    public DeviceRequestDTO() {
-    }
-
-    public DeviceRequestDTO(String id, String name, String brand, String state) {
-        this.id = id;
-        this.name = name;
-        this.brand = brand;
-        this.state = state;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
+    @NotNull(message = "State is required, must be one of AVAILABLE, IN_USE, INACTIVE")
+    private DeviceState state;
 
     public String getName() {
         return name;
@@ -41,11 +31,11 @@ public class DeviceRequestDTO {
         this.brand = brand;
     }
 
-    public String getState() {
+    public DeviceState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(DeviceState state) {
         this.state = state;
     }
 }
