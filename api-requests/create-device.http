@@ -1,0 +1,11 @@
+### POST request to create device
+POST http://localhost:4000/api/v1/devices
+content-type: application/json
+
+{
+  "name": "Device ABC",
+  "brand": "ABC New",
+  "state": "AVAILABLE"
+}
+
+###
