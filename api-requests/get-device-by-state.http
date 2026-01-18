@@ -1,11 +1,11 @@
 ### GET request to get devices by state
 
 #valid state
-GET http://localhost:4000/api/v1/devices?state=IN_USE
+GET http://localhost:8080/api/v1/devices?state=IN_USE
 
 
 ### GET request to get devices by state
 
 #invalid state
-GET http://localhost:4000/api/v1/devices?state=in
+GET http://localhost:8080/api/v1/devices?state=in
 

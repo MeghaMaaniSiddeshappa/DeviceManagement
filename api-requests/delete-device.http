@@ -1,9 +1,9 @@
 ### Delete a Device
-DELETE http://localhost:4000/api/v1/devices/222e4567-e89b-12d3-a456-426614174008
+DELETE http://localhost:8080/api/v1/devices/222e4567-e89b-12d3-a456-426614174008
 
 
 ### Delete a Device not found
-DELETE http://localhost:4000/api/v1/devices/222e4567-e89b-12d3-a456-42661417400
+DELETE http://localhost:8080/api/v1/devices/222e4567-e89b-12d3-a456-42661417400
 
 ### Delete a Device in use
-DELETE http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174012
+DELETE http://localhost:8080/api/v1/devices/333e4567-e89b-12d3-a456-426614174012

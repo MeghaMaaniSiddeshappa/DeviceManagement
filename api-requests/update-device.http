@@ -1,5 +1,5 @@
 ### PUT request to update device
-PUT http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
+PUT http://localhost:8080/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
 content-type: application/json
 
 {
@@ -10,7 +10,7 @@ content-type: application/json
 
 
 ### PUT request to update device with invalid state
-PUT http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
+PUT http://localhost:8080/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
 content-type: application/json
 
 {
@@ -20,7 +20,7 @@ content-type: application/json
 }
 
 ### PUT request to update device with invalid format
-PUT http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
+PUT http://localhost:8080/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
 content-type: application/json
 
 {
@@ -30,7 +30,7 @@ content-type: application/json
 }
 
 ### PUT request to update device with device not found
-PUT http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-42661417401
+PUT http://localhost:8080/api/v1/devices/333e4567-e89b-12d3-a456-42661417401
 content-type: application/json
 
 {
@@ -40,7 +40,7 @@ content-type: application/json
 }
 
 ### PUT request to update device with device in use
-PUT http://localhost:4000/api/v1/devices/222e4567-e89b-12d3-a456-426614174009
+PUT http://localhost:8080/api/v1/devices/222e4567-e89b-12d3-a456-426614174009
 content-type: application/json
 
 {
@@ -50,7 +50,7 @@ content-type: application/json
 }
 
 ### PUT request to update state with device in use
-PUT http://localhost:4000/api/v1/devices/222e4567-e89b-12d3-a456-426614174009
+PUT http://localhost:8080/api/v1/devices/222e4567-e89b-12d3-a456-426614174009
 content-type: application/json
 
 {
