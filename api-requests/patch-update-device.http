@@ -1,8 +1,46 @@
 ### PATCH request to update device
-PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174013
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174011
 content-type: application/json
 
 {
-  "brand": "ABC Updated"
+  "name": "Camera ProShot"
 }
-###
+### PATCH request to update device with device not found
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-42661417401
+content-type: application/json
+
+{
+  "name": "Camera ProShot"
+}
+
+### PATCH request to update name/brand with device in use
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174012
+content-type: application/json
+
+{
+  "name": "Camera ProShot"
+}
+
+### PATCH request to update state with device in use
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174012
+content-type: application/json
+
+{
+  "state": "AVAILABLE"
+}
+
+### PATCH request to update invalid state
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174012
+content-type: application/json
+
+{
+  "state": "ss"
+}
+
+### PATCH request to update invalid payload format
+PATCH http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174012
+content-type: application/json
+
+{
+  "state": "AVAILABLE",
+}

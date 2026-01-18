@@ -1,4 +1,8 @@
 ### GET request to get devices by brand
-GET http://localhost:4000/api/v1/devices?brand=KEYWORKS&state=available
+GET http://localhost:4000/api/v1/devices?brand=KeyWorks
+
+
+### GET request to get devices by brand invalid
+GET http://localhost:4000/api/v1/devices?brand=K
 
 ###

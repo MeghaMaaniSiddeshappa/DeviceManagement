@@ -1,4 +1,5 @@
 ### GET request to get device by ID
 GET http://localhost:4000/api/v1/devices/333e4567-e89b-12d3-a456-426614174014
 
-###
+### GET request to get device by ID that does not exist
+GET http://localhost:4000/api/v1/devices/333

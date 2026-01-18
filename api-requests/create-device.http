@@ -8,4 +8,22 @@ content-type: application/json
   "state": "AVAILABLE"
 }
 
-###
+
+### invalid state example
+POST http://localhost:4000/api/v1/devices
+content-type: application/json
+
+{
+"name": "Device ABC",
+"brand": "ABC New",
+"state": "AV"
+}
+
+### invalid format example
+POST http://localhost:4000/api/v1/devices
+content-type: application/json
+
+{
+"name": "Device ABC",
+"brand": "ABC New",
+}
