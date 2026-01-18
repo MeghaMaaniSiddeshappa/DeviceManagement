@@ -1,0 +1,32 @@
+
+services:
+  device_db:
+    image: postgres:15
+    container_name: device_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: device_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  devices-api:
+    build: .
+    container_name: devices-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://device_db:5432/device_db
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_SQL_INIT_MODE: always       # Ensures data.sql runs
+      SPRING_SQL_INIT_PLATFORM: postgres # Ensure SQL scripts use PostgreSQL dialect
+    depends_on:
+        - device_db
+
+volumes:
+  pgdata:

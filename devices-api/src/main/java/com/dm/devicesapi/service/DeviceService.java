@@ -12,6 +12,7 @@ import com.dm.devicesapi.repository.DeviceRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -25,6 +26,7 @@ public class DeviceService {
         this.deviceRepository = deviceRepository;
     }
 
+    @Transactional(readOnly = true)
     public Page<DeviceResponseDTO> getAllDevices( String brand, DeviceState state,
                                                 Pageable pageable) {
         Page<Device> devices ;
@@ -40,6 +42,7 @@ public class DeviceService {
         return devices.map(DeviceMapper::toDTO);
     }
 
+    @Transactional(readOnly = true)
     public DeviceResponseDTO getDeviceById(UUID id) {
         Device device = getDeviceIfExists(id);
         return DeviceMapper.toDTO(device);
