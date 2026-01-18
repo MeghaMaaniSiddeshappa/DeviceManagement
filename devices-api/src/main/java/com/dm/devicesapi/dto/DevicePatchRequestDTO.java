@@ -1,10 +1,12 @@
 package com.dm.devicesapi.dto;
 
+import com.dm.devicesapi.model.DeviceState;
+
 public class DevicePatchRequestDTO {
 
     private String name;
     private String brand;
-    private String state;
+    private DeviceState state;
 
     public String getName() {
         return name;
@@ -22,11 +24,11 @@ public class DevicePatchRequestDTO {
         this.brand = brand;
     }
 
-    public String getState() {
+    public DeviceState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(DeviceState state) {
         this.state = state;
     }
 }

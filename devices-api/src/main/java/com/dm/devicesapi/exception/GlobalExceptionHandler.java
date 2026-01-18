@@ -1,19 +1,21 @@
 package com.dm.devicesapi.exception;
 
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    // 400 - Bean Validation Errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationException( MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
@@ -22,20 +24,19 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    // 404 - Device Not Found
     @ExceptionHandler(DeviceNotFoundException.class)
     public ResponseEntity<Map<String, String>> handleDeviceDoesNotExistsException( DeviceNotFoundException ex) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put("message", ex.getMessage());
-        return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", ex.getMessage()));
     }
 
+    // 409 - Device In Use
     @ExceptionHandler(DeviceInUseException.class)
     public ResponseEntity<Map<String, String>> handleDeviceIsInUseException( DeviceInUseException ex) {
-        Map<String, String> errors = new HashMap<>();
-        errors.put("message", ex.getMessage());
-        return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(Map.of("message", ex.getMessage()));
     }
 
+    // 400 - Enum Parsing Errors in Request Body
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, String>> handleEnumParse(HttpMessageNotReadableException ex) {
 
@@ -56,6 +57,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    // 400 - Enum Parsing Errors in Query Parameters
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Map<String, String>> handleEnumQueryParamError(
             MethodArgumentTypeMismatchException ex) {

@@ -86,7 +86,7 @@ public class DeviceService {
             device.setBrand(devicePatchRequestDTO.getBrand());
 
         if(devicePatchRequestDTO.getState() != null)
-            device.setState(DeviceState.valueOf(devicePatchRequestDTO.getState()));
+            device.setState(devicePatchRequestDTO.getState());
 
         Device updatedDevice = deviceRepository.save(device);
         return DeviceMapper.toDTO(updatedDevice);
