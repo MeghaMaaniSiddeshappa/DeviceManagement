@@ -11,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import java.util.UUID;
 @RequestMapping("api/v1/devices")
 @Tag(name = "Device", description = "API for managing Devices, including CRUD operations and filtering")
 public class DeviceController {
+
+    private static final Logger log = LoggerFactory.getLogger(DeviceController.class);
 
     private final DeviceService deviceService;
 
@@ -49,7 +53,9 @@ public class DeviceController {
             @Parameter(description = "Pagination information")
             Pageable pageable
     ) {
+        log.info("Fetching all devices with brand: {} and state: {}", brand, state);
         Page<DeviceResponseDTO> deviceResponseDTOs = deviceService.getAllDevices( brand, state, pageable);
+        log.info("Retrieved {} devices", deviceResponseDTOs.getTotalElements());
         return ResponseEntity.ok(deviceResponseDTOs);
     }
 
@@ -68,6 +74,7 @@ public class DeviceController {
             @Parameter(description = " Device ID", example = "333e4567-e89b-12d3-a456-426614174012")
             @PathVariable UUID id
     ) {
+        log.info("Fetching device by ID: {}", id);
         DeviceResponseDTO deviceResponseDTO = deviceService.getDeviceById(id);
         return ResponseEntity.ok(deviceResponseDTO);
     }
@@ -86,7 +93,9 @@ public class DeviceController {
             @Parameter(description = "Device creation payload")
             DeviceRequestDTO deviceRequestDTO
     ) {
+        log.info("Creating new device");
         DeviceResponseDTO createdDTO = deviceService.createDevice( deviceRequestDTO);
+        log.info("Created device with ID: {}", createdDTO.getId());
         URI location = URI.create("/api/v1/devices/" + createdDTO.getId());
         return ResponseEntity.created(location).body(createdDTO);
     }
@@ -110,7 +119,9 @@ public class DeviceController {
             @RequestBody @Valid
             @Parameter(description = "Device update payload")
             DeviceRequestDTO deviceRequestDTO) {
+        log.info("Updating device with ID: {}", id);
         DeviceResponseDTO updatedDTO = deviceService.updateDevice(id, deviceRequestDTO);
+        log.info("Updated device successfully");
         return ResponseEntity.ok(updatedDTO);
     }
 
@@ -132,7 +143,10 @@ public class DeviceController {
             @RequestBody
             @Parameter(description = "Device update payload")
             DevicePatchRequestDTO devicePatchRequestDTO) {
+
+        log.info("Patch updating device with ID: {}", id);
         DeviceResponseDTO updatedDTO = deviceService.patchUpdateDevice(id, devicePatchRequestDTO);
+        log.info("Patch updated device successfully");
         return ResponseEntity.ok(updatedDTO);
     }
 
@@ -147,7 +161,9 @@ public class DeviceController {
             @Parameter(description = " Device ID", example = "333e4567-e89b-12d3-a456-426614174012")
             @PathVariable UUID id
     ) {
+        log.info("Deleting device with ID: {}", id);
         deviceService.deleteDevice(id);
+        log.info("Deleted device successfully");
         return ResponseEntity.noContent().build();
     }
 
