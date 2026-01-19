@@ -17,6 +17,8 @@ Devices API is a Spring Boot REST API for persisting and managing device resourc
 * Delete devices (only if not IN_USE)
 * Pagination support
 
+
+
 ##  Business Rules:
 * `name` and `brand` cannot be updated if device is `IN_USE`
 * Devices in `IN_USE` state cannot be deleted
@@ -41,9 +43,23 @@ Devices API is a Spring Boot REST API for persisting and managing device resourc
 * Maven for build management
 * JUnit & Mockito for testing
 
-## Running the Application
+## Getting Started
+### Prerequisites
+* Docker & Docker Compose installed
+* Git installed
+* Java 21 installed (for running tests/builds locally)
 
+## Running the Application
+### 1. Clone the repository:
+```bash 
+git clone https://github.com/MeghaMaaniSiddeshappa/DeviceManagement.git
+```
+
+### 2. Navigate to the project directory and start the application using Docker Compose:
+```
+cd DeviceManagement/devices-api
 docker-compose up --build
+```
 
 * API: http://localhost:8080/api/v1/devices
 * Swagger UI: http://localhost:8080/swagger-ui.html
@@ -74,12 +90,6 @@ POST /api/v1/devices
 "state": "AVAILABLE"
 }
 
-#### Logging
-
-* Service-level logs for key operations
-* Warning logs for business rule violations
-* Logs are written to the console for simplicity.
-
 #### Tests
 
 * Unit & integration tests included
@@ -87,10 +97,10 @@ POST /api/v1/devices
 
 #### Future Improvements:
 * Authentication & Authorization
+* Enhanced validation rules and test coverage
 * Advanced filtering & sorting
 * Caching for improved performance
 * Advanced logging & monitoring
-* Enhanced validation rules and test coverage
 * DB normalization and indexing for performance optimization
 
 #### Author: 

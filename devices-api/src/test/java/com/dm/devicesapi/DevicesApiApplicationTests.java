@@ -1,13 +1,13 @@
 package com.dm.devicesapi;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+//Not required since integration tests are already handled using Testcontainers.
+
+//@SpringBootTest
 class DevicesApiApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+//    @Test
+//    void contextLoads() {
+//    }
 
 }
