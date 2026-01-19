@@ -57,7 +57,7 @@ git clone https://github.com/MeghaMaaniSiddeshappa/DeviceManagement.git
 
 ### 2. Navigate to the project directory and start the application using Docker Compose:
 ```
-cd DeviceManagement/devices-api
+cd devices-api
 docker-compose up --build
 ```
 
